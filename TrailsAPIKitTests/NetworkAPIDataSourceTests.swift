@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import CycleNZ
+@testable import TrailsAPIKit
 
 // swiftlint:disable force_cast
 

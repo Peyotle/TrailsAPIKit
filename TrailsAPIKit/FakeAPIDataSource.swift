@@ -29,6 +29,10 @@ class FakeAPIDataSource: APIDataSource {
         completion(result: data, error: nil)
     }
 
+    public func postSite(data: Data, completion: (result: Data?, error: ErrorProtocol?) -> Void) {
+
+    }
+    
     class func fakeTrailDictionary() -> Dictionary<String, AnyObject> {
         let coordinates = [[-36.843053, 174.766465],
                              [-36.84423, 174.771012],
@@ -43,20 +47,15 @@ class FakeAPIDataSource: APIDataSource {
         ]
     }
 
-    class func fakeCoordinates() -> [Coordinate] {
-        let coordinates = [Coordinate(latitude: -36.843053, longitude: 174.766465),
-                         Coordinate(latitude: -36.844230, longitude: 174.771012),
-                         Coordinate(latitude: -36.845200, longitude: 174.770473),
-                         Coordinate(latitude: -36.844233, longitude: 174.766888)]
+    class func fakeCoordinates() -> [[Double]] {
+        let coordinates = [[-36.843053, 174.766465],
+                           [-36.84423, 174.771012],
+                           [-36.8452, 174.770473],
+                           [-36.844233, 174.766888]]
         return coordinates
     }
 
-    class func fakeCoordinate() -> Coordinate {
-        return Coordinate(latitude: -36.843053, longitude: 174.766465)
-    }
-
-    class func fakeTrail() -> Trail {
-        let coordinates = FakeAPIDataSource.fakeCoordinates()
-        return Trail(name: "Fake Trail", coordinates: coordinates)
+    class func fakeCoordinate() -> [Double] {
+        return [-36.843053, 174.766465]
     }
 }

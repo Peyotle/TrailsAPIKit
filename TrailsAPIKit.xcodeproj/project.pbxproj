@@ -7,22 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7C24FD001D444C2800D6B414 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FCFC1D444C2800D6B414 /* Coordinate.swift */; };
-		7C24FD011D444C2800D6B414 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FCFD1D444C2800D6B414 /* Place.swift */; };
-		7C24FD021D444C2800D6B414 /* Trail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FCFE1D444C2800D6B414 /* Trail.swift */; };
-		7C24FD031D444C2800D6B414 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FCFF1D444C2800D6B414 /* User.swift */; };
-		7C24FD071D444C8B00D6B414 /* TrailParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FD061D444C8B00D6B414 /* TrailParser.swift */; };
 		7C24FD0F1D445D6F00D6B414 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FD081D445D6F00D6B414 /* APIClientTests.swift */; };
-		7C24FD101D445D6F00D6B414 /* CoordinateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FD091D445D6F00D6B414 /* CoordinateTest.swift */; };
 		7C24FD111D445D6F00D6B414 /* FakeAPIDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FD0A1D445D6F00D6B414 /* FakeAPIDataSourceTests.swift */; };
 		7C24FD121D445D6F00D6B414 /* NetworkAPIDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FD0B1D445D6F00D6B414 /* NetworkAPIDataSourceTests.swift */; };
-		7C24FD131D445D6F00D6B414 /* PlaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FD0C1D445D6F00D6B414 /* PlaceTests.swift */; };
-		7C24FD141D445D6F00D6B414 /* TrailParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FD0D1D445D6F00D6B414 /* TrailParserTests.swift */; };
-		7C24FD151D445D6F00D6B414 /* TrailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24FD0E1D445D6F00D6B414 /* TrailTests.swift */; };
+		7C4435E31D4D7CAC0047AFAC /* TrailsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4435E21D4D7CAC0047AFAC /* TrailsAPIClient.swift */; };
 		7CBB7C3C1D4443D1001D889C /* TrailsAPIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CBB7C321D4443D1001D889C /* TrailsAPIKit.framework */; };
 		7CBB7C411D4443D1001D889C /* TrailsAPIKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBB7C401D4443D1001D889C /* TrailsAPIKitTests.swift */; };
 		7CBB7C431D4443D1001D889C /* TrailsAPIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CBB7C351D4443D1001D889C /* TrailsAPIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7CBB7C4F1D444796001D889C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBB7C4C1D444796001D889C /* APIClient.swift */; };
 		7CBB7C501D444796001D889C /* FakeAPIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBB7C4D1D444796001D889C /* FakeAPIDataSource.swift */; };
 		7CBB7C511D444796001D889C /* NetworkAPIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBB7C4E1D444796001D889C /* NetworkAPIDataSource.swift */; };
 /* End PBXBuildFile section */
@@ -38,25 +29,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7C24FCFC1D444C2800D6B414 /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
-		7C24FCFD1D444C2800D6B414 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
-		7C24FCFE1D444C2800D6B414 /* Trail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trail.swift; sourceTree = "<group>"; };
-		7C24FCFF1D444C2800D6B414 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		7C24FD061D444C8B00D6B414 /* TrailParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailParser.swift; sourceTree = "<group>"; };
 		7C24FD081D445D6F00D6B414 /* APIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
-		7C24FD091D445D6F00D6B414 /* CoordinateTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateTest.swift; sourceTree = "<group>"; };
 		7C24FD0A1D445D6F00D6B414 /* FakeAPIDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAPIDataSourceTests.swift; sourceTree = "<group>"; };
 		7C24FD0B1D445D6F00D6B414 /* NetworkAPIDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAPIDataSourceTests.swift; sourceTree = "<group>"; };
-		7C24FD0C1D445D6F00D6B414 /* PlaceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTests.swift; sourceTree = "<group>"; };
-		7C24FD0D1D445D6F00D6B414 /* TrailParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailParserTests.swift; sourceTree = "<group>"; };
-		7C24FD0E1D445D6F00D6B414 /* TrailTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailTests.swift; sourceTree = "<group>"; };
+		7C4435E21D4D7CAC0047AFAC /* TrailsAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailsAPIClient.swift; sourceTree = "<group>"; };
 		7CBB7C321D4443D1001D889C /* TrailsAPIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TrailsAPIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CBB7C351D4443D1001D889C /* TrailsAPIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrailsAPIKit.h; sourceTree = "<group>"; };
 		7CBB7C361D4443D1001D889C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CBB7C3B1D4443D1001D889C /* TrailsAPIKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrailsAPIKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CBB7C401D4443D1001D889C /* TrailsAPIKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailsAPIKitTests.swift; sourceTree = "<group>"; };
 		7CBB7C421D4443D1001D889C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7CBB7C4C1D444796001D889C /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		7CBB7C4D1D444796001D889C /* FakeAPIDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAPIDataSource.swift; sourceTree = "<group>"; };
 		7CBB7C4E1D444796001D889C /* NetworkAPIDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAPIDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,25 +62,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7C24FCFB1D444C2800D6B414 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				7C24FCFC1D444C2800D6B414 /* Coordinate.swift */,
-				7C24FCFD1D444C2800D6B414 /* Place.swift */,
-				7C24FCFE1D444C2800D6B414 /* Trail.swift */,
-				7C24FCFF1D444C2800D6B414 /* User.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		7C24FD051D444C8B00D6B414 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				7C24FD061D444C8B00D6B414 /* TrailParser.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
 		7CBB7C281D4443D1001D889C = {
 			isa = PBXGroup;
 			children = (
@@ -120,9 +83,7 @@
 		7CBB7C341D4443D1001D889C /* TrailsAPIKit */ = {
 			isa = PBXGroup;
 			children = (
-				7C24FD051D444C8B00D6B414 /* Utilities */,
-				7C24FCFB1D444C2800D6B414 /* Models */,
-				7CBB7C4C1D444796001D889C /* APIClient.swift */,
+				7C4435E21D4D7CAC0047AFAC /* TrailsAPIClient.swift */,
 				7CBB7C4D1D444796001D889C /* FakeAPIDataSource.swift */,
 				7CBB7C4E1D444796001D889C /* NetworkAPIDataSource.swift */,
 				7CBB7C351D4443D1001D889C /* TrailsAPIKit.h */,
@@ -135,12 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				7C24FD081D445D6F00D6B414 /* APIClientTests.swift */,
-				7C24FD091D445D6F00D6B414 /* CoordinateTest.swift */,
 				7C24FD0A1D445D6F00D6B414 /* FakeAPIDataSourceTests.swift */,
 				7C24FD0B1D445D6F00D6B414 /* NetworkAPIDataSourceTests.swift */,
-				7C24FD0C1D445D6F00D6B414 /* PlaceTests.swift */,
-				7C24FD0D1D445D6F00D6B414 /* TrailParserTests.swift */,
-				7C24FD0E1D445D6F00D6B414 /* TrailTests.swift */,
 				7CBB7C401D4443D1001D889C /* TrailsAPIKitTests.swift */,
 				7CBB7C421D4443D1001D889C /* Info.plist */,
 			);
@@ -262,14 +219,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C4435E31D4D7CAC0047AFAC /* TrailsAPIClient.swift in Sources */,
 				7CBB7C511D444796001D889C /* NetworkAPIDataSource.swift in Sources */,
 				7CBB7C501D444796001D889C /* FakeAPIDataSource.swift in Sources */,
-				7CBB7C4F1D444796001D889C /* APIClient.swift in Sources */,
-				7C24FD001D444C2800D6B414 /* Coordinate.swift in Sources */,
-				7C24FD021D444C2800D6B414 /* Trail.swift in Sources */,
-				7C24FD071D444C8B00D6B414 /* TrailParser.swift in Sources */,
-				7C24FD011D444C2800D6B414 /* Place.swift in Sources */,
-				7C24FD031D444C2800D6B414 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,11 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C24FD121D445D6F00D6B414 /* NetworkAPIDataSourceTests.swift in Sources */,
-				7C24FD131D445D6F00D6B414 /* PlaceTests.swift in Sources */,
-				7C24FD151D445D6F00D6B414 /* TrailTests.swift in Sources */,
 				7CBB7C411D4443D1001D889C /* TrailsAPIKitTests.swift in Sources */,
-				7C24FD141D445D6F00D6B414 /* TrailParserTests.swift in Sources */,
-				7C24FD101D445D6F00D6B414 /* CoordinateTest.swift in Sources */,
 				7C24FD111D445D6F00D6B414 /* FakeAPIDataSourceTests.swift in Sources */,
 				7C24FD0F1D445D6F00D6B414 /* APIClientTests.swift in Sources */,
 			);
