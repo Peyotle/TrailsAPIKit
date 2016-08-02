@@ -13,6 +13,7 @@ public protocol APIDataSource: class {
     func postTrail(data: Data, completion: (result: Data?, error: Error?) -> Void)
     func deleteTrail(with id: String, completion: (success: Bool, error: Error?) -> Void)
     
+    func getSites(completion: (sitesData: Data?, error: Error?) -> Void)
     func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void)
 }
 
@@ -80,8 +81,7 @@ public final class NetworkAPIDataSource: APIDataSource {
     }
 
     public func postTrail(data: Data, completion: (result: Data?, error: Error?) -> Void) {
-        let trailPath = trailsPath
-        var request = jsonRequest(with: trailPath)
+        var request = jsonRequest(with: trailsPath)
         request.httpMethod = "POST"
         request.httpBody = data
 
@@ -101,9 +101,28 @@ public final class NetworkAPIDataSource: APIDataSource {
         dataTask.resume()
     }
     
+    public func getSites(completion: (sitesData: Data?, error: Error?) -> Void) {
+        let request = jsonRequest(with: sitesPath)
+        let session = URLSession(configuration: self.authorizedConfiguration())
+        dataTask = session.dataTask(with: request) {data, response, error in
+            if let error = error {
+                completion(sitesData: nil, error: error)
+            } else if let httpResponse = response as? HTTPURLResponse,
+                let data = data {
+                if httpResponse.statusCode == 200 {
+                    completion(sitesData: data, error: nil)
+                } else if httpResponse.statusCode == 401 {
+                    completion(sitesData: nil, error: ServerError.NotAuthenticated)
+                }
+            } else {
+                completion(sitesData: nil, error: ServerError.UnknownError)
+            }
+        }
+        dataTask?.resume()
+    }
+    
     public func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void) {
-        let sitePath = sitesPath
-        var request = jsonRequest(with: sitePath)
+        var request = jsonRequest(with: sitesPath)
         request.httpMethod = "POST"
         request.httpBody = data
         

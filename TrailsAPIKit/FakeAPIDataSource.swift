@@ -28,6 +28,10 @@ class FakeAPIDataSource: APIDataSource {
 
         completion(result: data, error: nil)
     }
+    
+    public func getSites(completion: (sitesData: Data?, error: Error?) -> Void) {
+        
+    }
 
     public func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void) {
 
