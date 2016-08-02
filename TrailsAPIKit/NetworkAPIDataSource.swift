@@ -9,16 +9,16 @@
 import UIKit
 
 public protocol APIDataSource: class {
-    func getTrails(completion: (trailsData: Data?, error: ErrorProtocol?) -> Void)
-    func postTrail(data: Data, completion: (result: Data?, error: ErrorProtocol?) -> Void)
-    func deleteTrail(with id: String, completion: (success: Bool, error: ErrorProtocol?) -> Void)
+    func getTrails(completion: (trailsData: Data?, error: Error?) -> Void)
+    func postTrail(data: Data, completion: (result: Data?, error: Error?) -> Void)
+    func deleteTrail(with id: String, completion: (success: Bool, error: Error?) -> Void)
     
-    func postSite(data: Data, completion: (result: Data?, error: ErrorProtocol?) -> Void)
+    func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void)
 }
 
 public final class NetworkAPIDataSource: APIDataSource {
 
-    enum ServerError: ErrorProtocol {
+    enum ServerError: Error {
         case NotAuthenticated
         case UnknownError
     }
@@ -34,7 +34,7 @@ public final class NetworkAPIDataSource: APIDataSource {
         
     }
     
-    public func getTrails(completion: (trailsData: Data?, error: ErrorProtocol?) -> Void) {
+    public func getTrails(completion: (trailsData: Data?, error: Error?) -> Void) {
         let request = jsonRequest(with: trailsPath)
         let session = URLSession(configuration: self.authorizedConfiguration())
         dataTask = session.dataTask(with: request) {data, response, error in
@@ -54,7 +54,7 @@ public final class NetworkAPIDataSource: APIDataSource {
         dataTask?.resume()
     }
 
-    public func deleteTrail(with id: String, completion: (success: Bool, error: ErrorProtocol?) -> Void) {
+    public func deleteTrail(with id: String, completion: (success: Bool, error: Error?) -> Void) {
         let trailIdPath = "\(trailsPath)/\(id)"
         var request = jsonRequest(with: trailIdPath)
         request.httpMethod = "DELETE"
@@ -79,7 +79,7 @@ public final class NetworkAPIDataSource: APIDataSource {
         dataTask?.resume()
     }
 
-    public func postTrail(data: Data, completion: (result: Data?, error: ErrorProtocol?) -> Void) {
+    public func postTrail(data: Data, completion: (result: Data?, error: Error?) -> Void) {
         let trailPath = trailsPath
         var request = jsonRequest(with: trailPath)
         request.httpMethod = "POST"
@@ -101,7 +101,7 @@ public final class NetworkAPIDataSource: APIDataSource {
         dataTask.resume()
     }
     
-    public func postSite(data: Data, completion: (result: Data?, error: ErrorProtocol?) -> Void) {
+    public func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void) {
         let sitePath = sitesPath
         var request = jsonRequest(with: sitePath)
         request.httpMethod = "POST"
@@ -149,7 +149,7 @@ public final class NetworkAPIDataSource: APIDataSource {
 
     func showNetworkActivity(isVisible: Bool) {
         DispatchQueue.main.async(execute: {
-            UIApplication.shared().isNetworkActivityIndicatorVisible = isVisible
+            UIApplication.shared.isNetworkActivityIndicatorVisible = isVisible
         })
     }
 }

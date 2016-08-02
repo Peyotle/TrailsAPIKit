@@ -10,7 +10,7 @@ import UIKit
 
 class FakeAPIDataSource: APIDataSource {
 
-    func getTrails(completion: (trailsData: Data?, error: ErrorProtocol?) -> Void) {
+    func getTrails(completion: (trailsData: Data?, error: Error?) -> Void) {
         print("^getTrails")
         let arrayWithDict = [FakeAPIDataSource.fakeTrailDictionary()]
         let data = try? JSONSerialization.data(withJSONObject: arrayWithDict, options: [])
@@ -18,18 +18,18 @@ class FakeAPIDataSource: APIDataSource {
         completion(trailsData: data, error: nil)
     }
 
-    func deleteTrail(with id: String, completion: (success: Bool, error: ErrorProtocol?) -> Void) {
+    func deleteTrail(with id: String, completion: (success: Bool, error: Error?) -> Void) {
         completion(success: true, error: nil)
     }
 
-    func postTrail(data: Data, completion: (result: Data?, error: ErrorProtocol?) -> Void) {
+    func postTrail(data: Data, completion: (result: Data?, error: Error?) -> Void) {
         let data = try? JSONSerialization.data(withJSONObject: FakeAPIDataSource.fakeTrailDictionary(),
                                                options: [])
 
         completion(result: data, error: nil)
     }
 
-    public func postSite(data: Data, completion: (result: Data?, error: ErrorProtocol?) -> Void) {
+    public func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void) {
 
     }
     
