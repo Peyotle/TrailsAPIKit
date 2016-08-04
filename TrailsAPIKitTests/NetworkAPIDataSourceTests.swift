@@ -50,4 +50,14 @@ class NetworkAPIDataSourceTests: XCTestCase {
         XCTAssertEqual(requestValues, "application/json")
     }
 
+    func testSiteQueryForRegion() {
+        let region = (1.0, 2.0, 3.0, 4.0)
+
+        let query = networkClient.siteQuery(for: region)
+        print(query)
+
+    }
+
+
+
 }

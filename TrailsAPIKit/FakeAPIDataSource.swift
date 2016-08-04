@@ -33,6 +33,10 @@ class FakeAPIDataSource: APIDataSource {
         
     }
 
+    public func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: (sitesData: Data?, error: Error?) -> Void) {
+
+    }
+
     public func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void) {
 
     }

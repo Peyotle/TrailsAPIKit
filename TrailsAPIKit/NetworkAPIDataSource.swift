@@ -8,12 +8,16 @@
 
 import UIKit
 
+
 public protocol APIDataSource: class {
+
+
     func getTrails(completion: (trailsData: Data?, error: Error?) -> Void)
     func postTrail(data: Data, completion: (result: Data?, error: Error?) -> Void)
     func deleteTrail(with id: String, completion: (success: Bool, error: Error?) -> Void)
     
     func getSites(completion: (sitesData: Data?, error: Error?) -> Void)
+    func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: (sitesData: Data?, error: Error?) -> Void)
     func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void)
 }
 
@@ -120,7 +124,43 @@ public final class NetworkAPIDataSource: APIDataSource {
         }
         dataTask?.resume()
     }
-    
+
+
+    public func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: (sitesData: Data?, error: Error?) -> Void) {
+        let query = self.siteQuery(for: region)
+
+        self.run(query: query, completion: completion)
+    }
+
+    func siteQuery(for region: (x0: Double, x1: Double, y0: Double, y1: Double)) -> String {
+        let boxQuery = "{\"$geoWithin\":{\"$box\":[[\(region.x0),\(region.y0)],[\(region.x1),\(region.y1)]]}}"
+        let locationInBox = "{\"coordinates\":\(boxQuery)}"
+        let escapedLocation = locationInBox.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)
+
+        let query = "?query=\(escapedLocation!)"
+        return query
+    }
+
+    func run(query: String, completion: (sitesData: Data?, error: Error?) -> Void) {
+        let requestString = "\(sitesPath)/\(query)"
+        let request = jsonRequest(with: requestString)
+        let session = URLSession(configuration: self.authorizedConfiguration())
+        dataTask = session.dataTask(with: request) {data, response, error in
+            if let error = error {
+                print(error)
+            } else if let httpResponse = response as? HTTPURLResponse, let data = data {
+                if httpResponse.statusCode == 200 {
+                    completion(sitesData: data, error: nil)
+                } else if httpResponse.statusCode == 401 {
+                    completion(sitesData: nil, error: ServerError.NotAuthenticated)
+                } else {
+                    print(httpResponse)
+                }
+            }
+        }
+        dataTask?.resume()
+    }
+
     public func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void) {
         var request = jsonRequest(with: sitesPath)
         request.httpMethod = "POST"
