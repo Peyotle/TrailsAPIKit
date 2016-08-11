@@ -10,8 +10,8 @@ import UIKit
 
 public protocol TrailsAPIClient {
     
-    typealias TrailDictionary = Dictionary<String, AnyObject>
-    typealias getTrailsCompletion = (trails: TrailDictionary?, error: Error?) -> Void
+    associatedtype TrailDictionary = Dictionary<String, AnyObject>
+    associatedtype getTrailsCompletion = (trails: TrailDictionary?, error: Error?) -> Void
     
     func getTrails(completion: getTrailsCompletion)
     func post(trail: TrailDictionary, completion:(trail: TrailDictionary?, error: Error?) -> Void)

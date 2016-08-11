@@ -8,17 +8,21 @@
 
 import UIKit
 
+public enum Result<T, Error> {
+    case success(T)
+    case failure(Error)
+}
 
 public protocol APIDataSource: class {
 
+    func getTrails(completion:(Result<Data, Error>) -> Void)// (trailsData: Data?, error: Error?) -> Void)
 
-    func getTrails(completion: (trailsData: Data?, error: Error?) -> Void)
-    func postTrail(data: Data, completion: (result: Data?, error: Error?) -> Void)
-    func deleteTrail(with id: String, completion: (success: Bool, error: Error?) -> Void)
+    func postTrail(data: Data, completion: (Result<Data, Error>) -> Void)
+    func deleteTrail(with id: String, completion: (Result<Bool, Error>) -> Void)
     
-    func getSites(completion: (sitesData: Data?, error: Error?) -> Void)
-    func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: (sitesData: Data?, error: Error?) -> Void)
-    func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void)
+    func getSites(completion: (Result<Data, Error>) -> Void)
+    func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: (Result<Data, Error>) -> Void)
+    func postSite(data: Data, completion: (Result<Data, Error>) -> Void)
 }
 
 public final class NetworkAPIDataSource: APIDataSource {
@@ -38,28 +42,28 @@ public final class NetworkAPIDataSource: APIDataSource {
     public init() {
         
     }
-    
-    public func getTrails(completion: (trailsData: Data?, error: Error?) -> Void) {
+
+    public func getTrails(completion: (Result<Data, Error>) -> Void) {
         let request = jsonRequest(with: trailsPath)
         let session = URLSession(configuration: self.authorizedConfiguration())
         dataTask = session.dataTask(with: request) {data, response, error in
             if let error = error {
-                completion(trailsData: nil, error: error)
+                completion(.failure(error))
             } else if let httpResponse = response as? HTTPURLResponse,
                 let data = data {
                 if httpResponse.statusCode == 200 {
-                    completion(trailsData: data, error: nil)
+                    completion(.success(data))
                 } else if httpResponse.statusCode == 401 {
-                    completion(trailsData: nil, error: ServerError.NotAuthenticated)
+                    completion(.failure(ServerError.NotAuthenticated))
                 }
             } else {
-                completion(trailsData: nil, error: ServerError.UnknownError)
+                completion(.failure(ServerError.UnknownError))
             }
         }
         dataTask?.resume()
     }
 
-    public func deleteTrail(with id: String, completion: (success: Bool, error: Error?) -> Void) {
+    public func deleteTrail(with id: String, completion: (Result<Bool, Error>) -> Void) {
         let trailIdPath = "\(trailsPath)/\(id)"
         var request = jsonRequest(with: trailIdPath)
         request.httpMethod = "DELETE"
@@ -68,23 +72,23 @@ public final class NetworkAPIDataSource: APIDataSource {
 
         dataTask = session.dataTask(with: request) { (data, response, error) in
             guard error == nil else {
-                completion(success: false, error: error)
+                completion(.failure(error!))
                 return
             }
             guard let httpResponse = response as? HTTPURLResponse else {
-                completion(success: false, error: nil)
+                completion(.failure(ServerError.UnknownError))
                 return
             }
             guard httpResponse.statusCode == 200 else {
-                completion(success: false, error: ServerError.NotAuthenticated)
+                completion(.failure(ServerError.NotAuthenticated))
                 return
             }
-            completion(success: true, error: nil)
+            completion(.success(true))
         }
         dataTask?.resume()
     }
 
-    public func postTrail(data: Data, completion: (result: Data?, error: Error?) -> Void) {
+    public func postTrail(data: Data, completion: (Result<Data, Error>) -> Void) {
         var request = jsonRequest(with: trailsPath)
         request.httpMethod = "POST"
         request.httpBody = data
@@ -93,40 +97,40 @@ public final class NetworkAPIDataSource: APIDataSource {
 
         let dataTask = urlSession.dataTask(with: request) { (data, response, error) in
             if let error = error {
-                completion(result: nil, error: error)
+                completion(.failure(error))
             } else if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 200 {
-                    completion(result: data, error: nil)
+                if httpResponse.statusCode == 200, let data = data {
+                    completion(.success(data))
                 } else if httpResponse.statusCode == 401 {
-                    completion(result: nil, error: ServerError.NotAuthenticated)
+                    completion(.failure(ServerError.NotAuthenticated))
                 }
             }
         }
         dataTask.resume()
     }
     
-    public func getSites(completion: (sitesData: Data?, error: Error?) -> Void) {
+    public func getSites(completion: (Result<Data, Error>) -> Void) {
         let request = jsonRequest(with: sitesPath)
         let session = URLSession(configuration: self.authorizedConfiguration())
         dataTask = session.dataTask(with: request) {data, response, error in
             if let error = error {
-                completion(sitesData: nil, error: error)
+                completion(.failure(error))
             } else if let httpResponse = response as? HTTPURLResponse,
                 let data = data {
                 if httpResponse.statusCode == 200 {
-                    completion(sitesData: data, error: nil)
+                    completion(.success(data))
                 } else if httpResponse.statusCode == 401 {
-                    completion(sitesData: nil, error: ServerError.NotAuthenticated)
+                    completion(.failure(ServerError.NotAuthenticated))
                 }
             } else {
-                completion(sitesData: nil, error: ServerError.UnknownError)
+                completion(.failure(ServerError.UnknownError))
             }
         }
         dataTask?.resume()
     }
 
 
-    public func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: (sitesData: Data?, error: Error?) -> Void) {
+    public func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: (Result<Data, Error>) -> Void) {
         let query = self.siteQuery(for: region)
 
         self.run(query: query, completion: completion)
@@ -141,27 +145,28 @@ public final class NetworkAPIDataSource: APIDataSource {
         return query
     }
 
-    func run(query: String, completion: (sitesData: Data?, error: Error?) -> Void) {
+    func run(query: String, completion: (Result<Data, Error>) -> Void) {
         let requestString = "\(sitesPath)/\(query)"
         let request = jsonRequest(with: requestString)
         let session = URLSession(configuration: self.authorizedConfiguration())
         dataTask = session.dataTask(with: request) {data, response, error in
             if let error = error {
                 print(error)
+                completion(.failure(error))
             } else if let httpResponse = response as? HTTPURLResponse, let data = data {
                 if httpResponse.statusCode == 200 {
-                    completion(sitesData: data, error: nil)
+                    completion(.success(data))
                 } else if httpResponse.statusCode == 401 {
-                    completion(sitesData: nil, error: ServerError.NotAuthenticated)
+                    completion(.failure(ServerError.NotAuthenticated))
                 } else {
-                    print(httpResponse)
+                    completion(.failure(ServerError.UnknownError))
                 }
             }
         }
         dataTask?.resume()
     }
 
-    public func postSite(data: Data, completion: (result: Data?, error: Error?) -> Void) {
+    public func postSite(data: Data, completion: (Result<Data, Error>) -> Void) {
         var request = jsonRequest(with: sitesPath)
         request.httpMethod = "POST"
         request.httpBody = data
@@ -170,12 +175,14 @@ public final class NetworkAPIDataSource: APIDataSource {
         
         let dataTask = urlSession.dataTask(with: request) { (data, response, error) in
             if let error = error {
-                completion(result: nil, error: error)
+                completion(.failure(error))
             } else if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 200 {
-                    completion(result: data, error: nil)
+                if httpResponse.statusCode == 200, let data = data {
+                    completion(.success(data))
                 } else if httpResponse.statusCode == 401 {
-                    completion(result: nil, error: ServerError.NotAuthenticated)
+                    completion(.failure(ServerError.NotAuthenticated))
+                } else {
+                    completion(.failure(ServerError.UnknownError))
                 }
             }
         }

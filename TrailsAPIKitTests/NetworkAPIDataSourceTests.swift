@@ -50,6 +50,30 @@ class NetworkAPIDataSourceTests: XCTestCase {
         XCTAssertEqual(requestValues, "application/json")
     }
 
+    func testGetTrailsSuccess() {
+        let asyncExpectation = expectation(description: "Get Trail Request")
+
+        var resultData: Data?
+        networkClient.getTrails() { result in
+            switch result {
+            case .success(let data):
+                print("success")
+                resultData = data
+                asyncExpectation.fulfill()
+                break
+            case .failure(let error):
+                print("failure: \(error)")
+                XCTFail("Failed to get network result")
+                break
+            }
+        }
+        self.waitForExpectations(timeout: 0.5) { (error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(resultData)
+        }
+    }
+
+
     func testSiteQueryForRegion() {
         let region = (1.0, 2.0, 3.0, 4.0)
 
