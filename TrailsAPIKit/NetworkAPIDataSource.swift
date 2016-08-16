@@ -15,14 +15,14 @@ public enum Result<T, Error> {
 
 public protocol APIDataSource: class {
 
-    func getTrails(completion:(Result<Data, Error>) -> Void)// (trailsData: Data?, error: Error?) -> Void)
+    func getTrails(completion: @escaping (Result<Data, Error>) -> Void)// (trailsData: Data?, error: Error?) -> Void)
 
-    func postTrail(data: Data, completion: (Result<Data, Error>) -> Void)
-    func deleteTrail(with id: String, completion: (Result<Bool, Error>) -> Void)
+    func postTrail(data: Data, completion: @escaping  (Result<Data, Error>) -> Void)
+    func deleteTrail(with id: String, completion: @escaping  (Result<Bool, Error>) -> Void)
     
-    func getSites(completion: (Result<Data, Error>) -> Void)
-    func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: (Result<Data, Error>) -> Void)
-    func postSite(data: Data, completion: (Result<Data, Error>) -> Void)
+    func getSites(completion: @escaping  (Result<Data, Error>) -> Void)
+    func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: @escaping (Result<Data, Error>) -> Void)
+    func postSite(data: Data, completion: @escaping (Result<Data, Error>) -> Void)
 }
 
 public final class NetworkAPIDataSource: APIDataSource {
@@ -43,7 +43,7 @@ public final class NetworkAPIDataSource: APIDataSource {
         
     }
 
-    public func getTrails(completion: (Result<Data, Error>) -> Void) {
+    public func getTrails(completion: @escaping (Result<Data, Error>) -> Void) {
         let request = jsonRequest(with: trailsPath)
         let session = URLSession(configuration: self.authorizedConfiguration())
         dataTask = session.dataTask(with: request) {data, response, error in
@@ -63,7 +63,7 @@ public final class NetworkAPIDataSource: APIDataSource {
         dataTask?.resume()
     }
 
-    public func deleteTrail(with id: String, completion: (Result<Bool, Error>) -> Void) {
+    public func deleteTrail(with id: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let trailIdPath = "\(trailsPath)/\(id)"
         var request = jsonRequest(with: trailIdPath)
         request.httpMethod = "DELETE"
@@ -88,7 +88,7 @@ public final class NetworkAPIDataSource: APIDataSource {
         dataTask?.resume()
     }
 
-    public func postTrail(data: Data, completion: (Result<Data, Error>) -> Void) {
+    public func postTrail(data: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         var request = jsonRequest(with: trailsPath)
         request.httpMethod = "POST"
         request.httpBody = data
@@ -109,7 +109,7 @@ public final class NetworkAPIDataSource: APIDataSource {
         dataTask.resume()
     }
     
-    public func getSites(completion: (Result<Data, Error>) -> Void) {
+    public func getSites(completion: @escaping (Result<Data, Error>) -> Void) {
         let request = jsonRequest(with: sitesPath)
         let session = URLSession(configuration: self.authorizedConfiguration())
         dataTask = session.dataTask(with: request) {data, response, error in
@@ -130,7 +130,7 @@ public final class NetworkAPIDataSource: APIDataSource {
     }
 
 
-    public func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: (Result<Data, Error>) -> Void) {
+    public func getSites(for region: (x0: Double, x1: Double, y0: Double, y1: Double), completion: @escaping (Result<Data, Error>) -> Void) {
         let query = self.siteQuery(for: region)
 
         self.run(query: query, completion: completion)
@@ -145,7 +145,7 @@ public final class NetworkAPIDataSource: APIDataSource {
         return query
     }
 
-    func run(query: String, completion: (Result<Data, Error>) -> Void) {
+    func run(query: String, completion: @escaping (Result<Data, Error>) -> Void) {
         let requestString = "\(sitesPath)/\(query)"
         let request = jsonRequest(with: requestString)
         let session = URLSession(configuration: self.authorizedConfiguration())
@@ -166,7 +166,7 @@ public final class NetworkAPIDataSource: APIDataSource {
         dataTask?.resume()
     }
 
-    public func postSite(data: Data, completion: (Result<Data, Error>) -> Void) {
+    public func postSite(data: Data, completion: @escaping (Result<Data, Error>) -> Void) {
         var request = jsonRequest(with: sitesPath)
         request.httpMethod = "POST"
         request.httpBody = data

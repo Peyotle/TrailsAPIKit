@@ -11,11 +11,11 @@ import UIKit
 public protocol TrailsAPIClient {
     
     associatedtype TrailDictionary = Dictionary<String, AnyObject>
-    associatedtype getTrailsCompletion = (trails: TrailDictionary?, error: Error?) -> Void
+    associatedtype getTrailsCompletion = (_ trails: TrailDictionary?, _ error: Error?) -> Void
     
     func getTrails(completion: getTrailsCompletion)
-    func post(trail: TrailDictionary, completion:(trail: TrailDictionary?, error: Error?) -> Void)
-    func deleteTrail(with id: String, completion: (success: Bool, error: Error?) -> Void)
+    func post(trail: TrailDictionary, completion:(_ trail: TrailDictionary?, _ error: Error?) -> Void)
+    func deleteTrail(with id: String, completion: (_ success: Bool, _ error: Error?) -> Void)
 }
 
 public final class APIClient {
